@@ -28,7 +28,7 @@ class Transaction(db.Model):
     quantity = db.Column(db.Integer, nullable=True)
     # I have omitted the ForeignKey constraint to allow the insertion of transactions with non existing customers.
     customer_id = db.Column(db.Integer, nullable=True) 
-    product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey('product.product_id'), nullable=False)
 
     product = db.relationship('Product', backref=db.backref('transactions', lazy=True))
 
