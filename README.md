@@ -31,6 +31,6 @@ $ curl http://localhost:5000/customers/last-order-per-customer
 ## Available endpoints
 
 The API exposes 3 endpoints:
-`/customers/birthday` Get the customers with birthdays today.
-`/customers/last-order-per-customer` Get the last order date per customer.
-`/products/top-selling-products/{year}` Get the top 10 selling products for a given year.
+1. `/customers/birthday` Get the customers with birthdays today.
+2. `/customers/last-order-per-customer` Get the last order date per customer.
+3. `/products/top-selling-products/{year}` Get the top 10 selling products for a given year.
