@@ -6,6 +6,7 @@ from app.queries import get_customers_with_birthday_today, get_top_products_for_
 
 @app.route('/customers/birthday', methods=['GET'])
 def birthday_customers():
+    app.logger.info('Route birthday_customers was called.')
     """
     Get the customers with birthdays today.
 
@@ -18,6 +19,7 @@ def birthday_customers():
     with db.engine.connect() as conn:
         results = conn.execute(text(get_customers_with_birthday_today))
         results = [{'customer_id': row[0], 'customer_first_name': row[1]} for row in results]
+    app.logger.info(f'Returning list of birthday customers. List size: {len(results)}')
     return jsonify(customers=results)
 
 @app.route('/customers/last-order-per-customer', methods=['GET'])
@@ -32,6 +34,7 @@ def last_order_per_customer():
     :returns: A JSON object containing the list of customers and their last order date.
     :rtype: flask.Response (application/json)
     """
+    app.logger.info('Route last_order_per_customer was called.')
     with db.engine.connect() as conn:
         results = conn.execute(text(get_last_order_per_customer))
         customers = [
@@ -42,6 +45,7 @@ def last_order_per_customer():
             }
             for row in results
         ]
+    app.logger.info(f'Returning list of customers. List size: {len(customers)}')
     return jsonify(customers=customers)
 
 @app.route('/products/top-selling-products/<year>', methods=['GET'])
@@ -58,7 +62,9 @@ def top_selling_products(year):
     :returns: A JSON object containing the top 10 products and their total sales for the given year.
     :rtype: flask.Response (application/json)
     """
+    app.logger.info('Route top_selling_products was called.')
     with db.engine.connect() as conn:
         results = conn.execute(text(get_top_products_for_year), {'year': year})
         top_products = [{'product_name': row[0], 'total_sales': row[1]} for row in results]
+    app.logger.info(f'Returning list of products. List size: {len(top_products)}')
     return jsonify(products=top_products)
